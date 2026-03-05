@@ -1,0 +1,10 @@
+services:
+  app:
+    container_name: rag-local
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - OLLAMA_URL=http://host.docker.internal:11434
+    volumes:
+      - ./docs:/app/docs
