@@ -1,23 +1,34 @@
 from pathlib import Path
 
 import fitz  # type: ignore
+from constants import ROOT_URL
+from llama_index.core import Document, SimpleDirectoryReader
 
-root_url = "./docs"
+
+# For beginning the first connection, we're going to use the first built functions
+# in LlamaIndex, Knowing we have limited uses for important metadata in each chunk
+#
+def simple_reader():
+    docs = SimpleDirectoryReader(input_dir=ROOT_URL, recursive=True)
+    return docs.load_data(show_progress=True)
 
 
-def get_path(path_url: str) -> list[str]:
-    path = Path(path_url)
+# After this line, there's another approach builded for handle metadata, WIP
+
+
+def get_path(url: str) -> list[str]:
+    path = Path(url)
 
     # Validations
     if not path.exists():
-        raise FileNotFoundError(f"File not found: {path_url}")
+        raise FileNotFoundError(f"File not found: {url}")
     if not path.is_dir():
-        raise NotADirectoryError(f"Not a directory: {path_url}")
+        raise NotADirectoryError(f"Not a directory: {url}")
 
     return [str(p) for p in path.glob("*.pdf")]
 
 
-def read_pdf(urls: list[str]) -> list[dict]:
+def load_pdf(urls: list[str]) -> list[dict]:
     try:
         pages = []
         for path in urls:
@@ -36,6 +47,8 @@ def read_pdf(urls: list[str]) -> list[dict]:
         print("There was an error", e)
         return [{}]
 
-
-print(get_path(root_url))
-print(read_pdf(get_path(root_url)))
+    def to_documents(pages: list[dict]) -> list[Document]:
+        return [
+            Document(text=page["text"], matadata={"page": page["page"]})
+            for page in pages
+        ]
