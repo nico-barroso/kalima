@@ -1,8 +1,5 @@
 import os
 
-from pipeline.indexer import indexer
-from pipeline.queries import query
+from frontend.app_interface import render_chat
 
-indexer()
-
-print(query())
+render_chat()
