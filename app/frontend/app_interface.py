@@ -1,5 +1,5 @@
 import streamlit as st
-from pipeline.indexer import load_indexer, query
+from pipeline.indexer import load_index, query
 
 
 def render_chat():
@@ -10,7 +10,7 @@ def render_chat():
 
     if "index" not in st.session_state:
         with st.spinner("Loading index..."):
-            st.session_state.index = load_indexer()
+            st.session_state.index = load_index()
 
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
@@ -29,5 +29,3 @@ def render_chat():
         st.session_state.messages.append(
             {"role": "assistant", "content": str(response)}
         )
-
-

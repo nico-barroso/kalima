@@ -1,7 +1,6 @@
 from llama_index.core import Document
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.schema import BaseNode
-from rag.corpus.reader import simple_reader
 
 
 def split(docs: list[Document]) -> list[BaseNode]:
