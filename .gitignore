@@ -1,2 +1,9 @@
 .git
 .venv
+MEMORIA.md
+chroma_db
+tasks.json
+__pycache__
+.dockerignore
+node_modules
+docs

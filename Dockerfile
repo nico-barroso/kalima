@@ -1,11 +1,12 @@
-FROM python:3.11-slim
+FROM python:3.13-slim
 
-WORKDIR app/
+WORKDIR /app
+
+COPY app/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app/ .
 
-RUN pip install -r requirements.txt
+EXPOSE 8501
 
-COPY . .
-
-CMD ["streamlit", "run", "app.py"]
+CMD ["streamlit", "run", "main.py", "--server.address", "0.0.0.0", "--server.port", "8501"]
