@@ -1,5 +1,16 @@
-from frontend.app_interface import render_chat
-from pipeline.indexer import load_indexer
+from pathlib import Path
 
-index = load_indexer()
+from constants import VECTOR_STORE_DICT
+from frontend.app_interface import render_chat
+from pipeline.indexer import build_index, load_index
+
+store_path = Path(VECTOR_STORE_DICT)
+
+db_file = store_path / "chroma.sqlite3"
+
+if db_file.exists():
+    load_index()
+else:
+    build_index()
+
 render_chat()
