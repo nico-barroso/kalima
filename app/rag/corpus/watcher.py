@@ -1,6 +1,6 @@
 import time
 from rag.chunks.splitter import document_splitter
-from rag.corpus.reader import simple_reader
+from rag.corpus.reader import dir_corpus_reader
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
@@ -15,7 +15,7 @@ class DocHandler(FileSystemEventHandler):
 
         print(f"Nuevo archivo detectado: {event.src_path}")
 
-        documents = simple_reader(input_files=[event.src_path])
+        documents = dir_corpus_reader(input_files=[event.src_path])
         nodes = document_splitter(documents)
         self.index.insert_nodes(nodes)
         print(f"Indexados {len(nodes)} nodos de {event.src_path}")
