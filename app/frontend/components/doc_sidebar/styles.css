@@ -1,0 +1,54 @@
+/* -- Sidebar Native expander -- */
+[data-testid="stExpandSidebarButton"]::after {
+    content: "Mis documentos";
+}
+
+[data-testid="stSidebar"] {
+    background-color: #252524;
+    border-right: solid 1px #494946;
+    height: 100%;
+}
+.uploader-container {
+    padding: 1rem;
+}
+[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {
+    border-radius: 20px !important;
+    background-color: #1f1f1e !important;
+}
+.st-key-uploader {
+    padding: 1rem;
+}
+/* ── Document list ── */
+.document-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 20px;
+    padding: 1rem;
+}
+
+.document-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    position: relative;
+    width: 100%;
+    height: 60px;
+    background-color: #1f1f1e;
+    border-radius: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border: 1px solid #7a7a7a;
+}
+
+.document-card p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+    flex: 1; /* ocupa el espacio restante después del emoji */
+    min-width: 0; /* necesario en flexbox para que ellipsis funcione */
+}
