@@ -9,33 +9,23 @@ from frontend.utils.utils import font_to_base64, styles_file_opener
 from rag.corpus.watcher import start_watcher
 from streamlit.runtime.state.session_state_proxy import SessionStateProxy
 
-<<<<<<< HEAD
-
-def run_chat(index, reranker):
-    st.set_page_config(initial_sidebar_state="collapsed", menu_items=None)
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-=======
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def run_chat(index: SessionStateProxy, reranker: SessionStateProxy):
-    """Main interface controller.
+    """
+    Main interface controller.
 
     Manages session state, global styles, and component rendering.
 
     Args:
-        index(SessionStateProxy): the index must be the session_state of the index.
-        reranker(SessionStateProxy): the reranker that ranks the nodes, must be the session_state reranker.
+        index(SessionStateProxy): current RAG index from session state.
+        reranker(SessionStateProxy): reranker model from session state.
 
     Note:
-        Because the Streamlit rerender, adding custom font it's a "pain in the ass". So the next approach
-        fix it. Convert the fonts to base64 and injecting the style directly in the markdown.
-
-
+        To ensure consistent font rendering across different browsers/OS,
+        fonts are converted to base64 and injected via CSS.
     """
-
-    # Encoding fonts to base64 to ensure consistent rendering across browsers
->>>>>>> f771d17 (fix(commit_not_merged): one of the fix was not merged correctly to the)
     zodiak = font_to_base64(os.path.join(BASE_DIR, "assets/Zodiak-Bold.otf"))
     plus_jakarta = font_to_base64(
         os.path.join(BASE_DIR, "assets/PlusJakartaSans-Regular.otf")
@@ -48,7 +38,7 @@ def run_chat(index: SessionStateProxy, reranker: SessionStateProxy):
         initial_sidebar_state="collapsed",
         menu_items=None,
         page_title="Kalima",
-        page_icon=cloud_svg,
+        page_icon="☁️",
     )
 
     # --- Global Styles Injection ---
@@ -67,15 +57,11 @@ def run_chat(index: SessionStateProxy, reranker: SessionStateProxy):
             font-style: normal;
         }}
 
-        {
-        # --- External styles.css ---
-        styles_file_opener(__file__)
-    }
+        {styles_file_opener(__file__)}
     </style>
     """
     st.markdown(DYNAMIC_STYLES, unsafe_allow_html=True)
 
-    # --- Session State Management ---
     if "sidebar" not in st.session_state:
         st.session_state.sidebar = True
     if "messages" not in st.session_state:
@@ -85,22 +71,18 @@ def run_chat(index: SessionStateProxy, reranker: SessionStateProxy):
     if "reranker" not in st.session_state:
         st.session_state.reranker = reranker
     if "watcher_started" not in st.session_state:
+        st.session_state.watcher_started = True
         t = threading.Thread(
             target=start_watcher,
-            args=(st.session_state.index,),  # Usar el del session_state
+            args=(st.session_state.index,),
             kwargs={"path": "./docs"},
             daemon=True,
         )
         t.start()
-<<<<<<< HEAD
-        st.session_state.watcher_started = True
-=======
->>>>>>> f771d17 (fix(commit_not_merged): one of the fix was not merged correctly to the)
 
     if st.session_state.sidebar:
         doc_sidebar()
 
-        # Branding Header
         st.markdown(
             f"""
             <div class="zodiak-title" style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:2rem;">
