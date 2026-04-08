@@ -11,7 +11,7 @@ from rag.embeddings.initialize_embedding import initialize_embedding
 STORE_PATH = Path(VECTOR_STORE_PATH)
 
 
-def _load_or_build_index():
+def load_or_build_index():
     initialize_embedding()
 
     if (STORE_PATH / "chroma.sqlite3").exists():
@@ -26,7 +26,7 @@ def _load_or_build_index():
 
 @st.cache_resource
 def get_index():
-    return _load_or_build_index()
+    return load_or_build_index()
 
 
 @st.cache_resource

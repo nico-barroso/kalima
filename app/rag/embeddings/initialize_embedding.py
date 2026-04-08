@@ -1,10 +1,13 @@
+from constants import OLLAMA_URL
 from llama_index.core import Settings
 from llama_index.embeddings.ollama import OllamaEmbedding
 from llama_index.llms.ollama import Ollama
 
 
 def text_embedder():
-    Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text")
+    Settings.embed_model = OllamaEmbedding(
+        model_name="nomic-embed-text", base_url=OLLAMA_URL
+    )
 
 
 def llm_model(model: str = "gemma3:4b", timeout: float = 60.0, num_predict: int = 5024):
@@ -18,6 +21,7 @@ def llm_model(model: str = "gemma3:4b", timeout: float = 60.0, num_predict: int 
     Settings.llm = Ollama(
         model=model,
         request_timeout=timeout,
+        base_url=OLLAMA_URL,
         additional_kwargs={"num_predict": num_predict},
     )
 

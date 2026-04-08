@@ -1,13 +1,16 @@
 services:
   app:
-    container_name: rag-local
+    container_name: kalima
     build: .
     ports:
       - "8501:8501"
     environment:
       - OLLAMA_URL=http://host.docker.internal:11434
       - PYTHONUNBUFFERED=1
+      - TRANSFORMERS_VERBOSITY=error
+      - TOKENIZERS_PARALLELISM=false
     volumes:
+      - ./.streamlit:/app/.streamlit
       - ./docs:/app/docs
       - ./chroma_db:/app/chroma_db
     extra_hosts:

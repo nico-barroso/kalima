@@ -6,6 +6,5 @@ tasks.json
 __pycache__
 .dockerignore
 node_modules
-docs
 debug.json
 ingest_test_tmp.txt
