@@ -1,0 +1,57 @@
+/* --- Typography Configuration --- */
+
+* {
+    font-family: "PlusJakarta", sans-serif;
+}
+
+h2,
+h3,
+.zodiak-title,
+.zodiak-title h1 {
+    font-family: "Zodiak", serif !important;
+    font-weight: bold !important;
+}
+
+h2 {
+    font-size: 22px !important;
+}
+h3 {
+    font-size: 18px !important;
+}
+
+.zodiak-title > p {
+    font-family: "PlusJakarta", sans-serif !important;
+    font-weight: normal;
+}
+
+/* --- Streamlit UI Cleanup --- */
+
+[data-testid="stAppDeployButton"],
+[data-testid="stMainMenuButton"] {
+    display: none !important;
+}
+
+.cloud-icon svg {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* --- Layout & Positioning --- */
+
+[data-testid="stHorizontalBlock"] {
+    z-index: 100;
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 736px;
+    padding: 0 1rem;
+}
+
+[data-testid="stBottomBlockContainer"] {
+    padding-bottom: 7.5rem;
+}
