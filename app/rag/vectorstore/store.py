@@ -12,7 +12,7 @@ def setup_store(
 
     Args:
         path (str): the path to the vector store. If not created creates a new one in the
-        same path with the same name, VECTOR_STORE_DICT by default.
+        same path with the same name, VECTOR_STORE_PATH by default.
         collection_name (str): the name of the collection, PROJECT_NAME by default"""
     chroma_client = chromadb.PersistentClient(path=path)
     chroma_collection = chroma_client.get_or_create_collection(collection_name)
