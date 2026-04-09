@@ -10,7 +10,6 @@ services:
       - TRANSFORMERS_VERBOSITY=error
       - TOKENIZERS_PARALLELISM=false
     volumes:
-      - ./.streamlit:/app/.streamlit
       - ./docs:/app/docs
       - ./chroma_db:/app/chroma_db
     extra_hosts:
