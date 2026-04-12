@@ -12,22 +12,16 @@ from rag.embeddings.initialize_embedding import initialize_embedding
 STORE_PATH = Path(VECTOR_STORE_PATH)
 
 
-def load_or_build_index():
+@st.cache_resource
+def get_index():
     initialize_embedding()
-
     if (STORE_PATH / "chroma.sqlite3").exists():
         try:
             return load_index()
         except Exception as e:
             st.error(f"Error loading the index: {e}. Rebuilding...")
             return build_index()
-
     return build_index()
-
-
-@st.cache_resource
-def get_index():
-    return load_or_build_index()
 
 
 @st.cache_resource
@@ -46,24 +40,13 @@ def main():
 
     if "initialized" not in st.session_state:
         loader()
-
-        with st.spinner("Cargando índice..."):
-            index = get_index()
-
-        with st.spinner("Inicializando módulos..."):
-            reranker = get_reranker()
-
-        st.session_state.index = index
-        st.session_state.reranker = reranker
-        st.session_state.initialized = True
-
+        with st.spinner("Cargando..."):
+            st.session_state.index = get_index()
+            st.session_state.reranker = get_reranker()
+            st.session_state.initialized = True
         st.rerun()
 
-    current_index = st.session_state.get("index")
-    current_reranker = st.session_state.get("reranker")
-
-    if current_index and current_reranker:
-        run_chat(current_index, current_reranker)
+    run_chat(st.session_state.index, st.session_state.reranker)
 
 
 if __name__ == "__main__":

@@ -6,35 +6,37 @@ from frontend.components.chat_render.chat_render import chat_render
 from frontend.components.doc_sidebar.doc_sidebar import doc_sidebar
 from frontend.components.model_selector.model_selector import model_selector
 from frontend.utils.utils import font_to_base64, styles_file_opener
+from llama_index.core import VectorStoreIndex
+from llama_index.core.postprocessor import SentenceTransformerRerank
 from rag.corpus.watcher import start_watcher
-from streamlit.runtime.state.session_state_proxy import SessionStateProxy
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
-def run_chat(index: SessionStateProxy, reranker: SessionStateProxy):
-    """
-    Main interface controller.
-
-    Manages session state, global styles, and component rendering.
-
-    Args:
-        index(SessionStateProxy): current RAG index from session state.
-        reranker(SessionStateProxy): reranker model from session state.
-
-    Note:
-        To ensure consistent font rendering across different browsers/OS,
-        fonts are converted to base64 and injected via CSS.
-    """
+@st.cache_resource
+def load_assets():
     zodiak = font_to_base64(os.path.join(BASE_DIR, "assets/Zodiak-Bold.otf"))
     plus_jakarta = font_to_base64(
         os.path.join(BASE_DIR, "assets/PlusJakartaSans-Regular.otf")
     )
-
     with open(os.path.join(BASE_DIR, "assets/Cloud.svg")) as f:
         cloud_svg = f.read()
+    return zodiak, plus_jakarta, cloud_svg
 
-    # --- Global Styles Injection ---
+
+def run_chat(index: VectorStoreIndex, reranker: SentenceTransformerRerank):
+    """
+    Main interface controller.
+    Manages session state, global styles, and component rendering.
+    Args:
+        index(VectorStoreIndex): current RAG index from session state.
+        reranker(SentenceTransformerRerank): reranker model from session state.
+    Note:
+        To ensure consistent font rendering across different browsers/OS,
+        fonts are converted to base64 and injected via CSS.
+    """
+    zodiak, plus_jakarta, cloud_svg = load_assets()
+
     DYNAMIC_STYLES = f"""
     <style>
         @font-face {{
@@ -49,7 +51,6 @@ def run_chat(index: SessionStateProxy, reranker: SessionStateProxy):
             font-weight: bold;
             font-style: normal;
         }}
-
         {styles_file_opener(__file__)}
     </style>
     """
@@ -59,10 +60,6 @@ def run_chat(index: SessionStateProxy, reranker: SessionStateProxy):
         st.session_state.sidebar = True
     if "messages" not in st.session_state:
         st.session_state.messages = []
-    if "index" not in st.session_state:
-        st.session_state.index = index
-    if "reranker" not in st.session_state:
-        st.session_state.reranker = reranker
     if "watcher_started" not in st.session_state:
         st.session_state.watcher_started = True
         t = threading.Thread(
@@ -75,7 +72,6 @@ def run_chat(index: SessionStateProxy, reranker: SessionStateProxy):
 
     if st.session_state.sidebar:
         doc_sidebar()
-
         st.markdown(
             f"""
             <div class="zodiak-title" style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:2rem;">
