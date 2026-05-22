@@ -70,7 +70,7 @@ def query(
         node_postprocessors=[reranker],
         response_mode="compact",
         streaming=True,
-        text_qa_template=qa_prompt,
+        text_qa_template=qa_prompt(),
     )
 
     chat_history = build_chat_history(chat_history) if chat_history else []
