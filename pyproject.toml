@@ -1,0 +1,24 @@
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes (bugs reales)
+    "W",   # warnings
+    "I",   # isort (imports)
+    "B",   # flake8-bugbear (bugs comunes)
+    "S",   # bandit (seguridad) ← lo importante
+    "UP",  # pyupgrade (sintaxis moderna)
+    "SIM", # simplify
+]
+ignore = ["S101"] 
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true  
+
+[[tool.mypy.overrides]]
+module = ["chromadb.*", "llama_index.*", "streamlit.*"]
+ignore_missing_imports = true
