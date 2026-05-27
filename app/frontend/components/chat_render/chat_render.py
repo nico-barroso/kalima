@@ -60,7 +60,7 @@ def stream_response(
         chat_history: Previous messages in the conversation. Defaults to None.
     """
     bubble = st.empty()
-    thinking_message = random.choice(THINKING_MESSAGES)
+    thinking_message = random.choice(THINKING_MESSAGES) # noqa: S311 - UI cosmético, no requiere CSPRNG
     bubble.html(
         BUBBLE_STREAMING.format(content=f'<span class="thinking">{thinking_message}</span>')
     )
