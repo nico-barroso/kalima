@@ -2,6 +2,7 @@ import time
 from pathlib import Path
 from typing import Any
 
+from constants import logger
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
 from rag.chunks.splitter import document_splitter
 from rag.corpus.reader import reader
@@ -30,13 +31,13 @@ class DocHandler(FileSystemEventHandler):
             return
 
         time.sleep(1)
-        print(f"Watcher: New file detected -> {event.src_path}")
+        logger.info(f"Watcher: New file detected -> {event.src_path}")
 
         documents = reader(input_files=[event.src_path])
         nodes = document_splitter(documents)
         self.index.insert_nodes(nodes, show_progress=True)
 
-        print(f"Indexed {len(nodes)} nodes of {event.src_path}")
+        logger.info(f"Indexed {len(nodes)} nodes of {event.src_path}")
 
 
 def start_watcher(index: VectorStoreIndex, path: str):
@@ -52,4 +53,4 @@ def start_watcher(index: VectorStoreIndex, path: str):
 
     observer.schedule(handler, path=absolute_path, recursive=False)
     observer.start()
-    print(f"✅ Watcher started and monitoring in : {absolute_path}")
+    logger.info(f"✅ Watcher started and monitoring in : {absolute_path}")

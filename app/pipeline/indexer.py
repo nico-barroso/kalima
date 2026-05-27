@@ -1,3 +1,4 @@
+from constants import logger
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
 from rag.chunks.splitter import document_splitter
 from rag.corpus.reader import reader
@@ -13,9 +14,9 @@ def build_index() -> VectorStoreIndex:
         3. Pass them to the vector store and initialize it
     """
     docs = reader()
-    print(f"Loaded {len(docs)} docs")
+    logger.info(f"Loaded {len(docs)} docs")
     nodes = document_splitter(docs)
-    print(f"Split into {len(nodes)} nodes")
+    logger.info(f"Split into {len(nodes)} nodes")
     index = init_store(nodes)
     return index
 
@@ -23,5 +24,5 @@ def build_index() -> VectorStoreIndex:
 def load_index() -> VectorStoreIndex:
     """Initialize a vector store already indexed"""
     index = load_store()
-    print("Index loaded correctly")
+    logger.info("Index loaded correctly")
     return index

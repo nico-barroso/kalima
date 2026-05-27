@@ -1,3 +1,4 @@
+from constants import logger
 from llama_index.core import PromptTemplate
 from llama_index.core.chat_engine.types import ChatMode, StreamingAgentChatResponse
 from llama_index.core.indices.vector_store.base import VectorStoreIndex
@@ -12,9 +13,7 @@ def reranker(top_n: int = 3) -> SentenceTransformerRerank:
     Args:
         top_n: number of nodes returned after reranking.
     """
-    return SentenceTransformerRerank(
-        model="cross-encoder/ms-marco-MiniLM-L-6-v2", top_n=top_n
-    )
+    return SentenceTransformerRerank(model="cross-encoder/ms-marco-MiniLM-L-6-v2", top_n=top_n)
 
 
 def qa_prompt() -> PromptTemplate:
@@ -77,7 +76,7 @@ def query(
     response = chat_engine.stream_chat(question, chat_history=chat_history)
 
     for node in response.source_nodes:
-        print(
+        logger.info(
             f"Score: {node.score} | {node.metadata.get('file_name')} | page {node.metadata.get('page_label')}"
         )
     return response

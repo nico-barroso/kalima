@@ -5,9 +5,7 @@ from llama_index.llms.ollama import Ollama
 
 
 def text_embedder():
-    Settings.embed_model = OllamaEmbedding(
-        model_name="nomic-embed-text", base_url=OLLAMA_URL
-    )
+    Settings.embed_model = OllamaEmbedding(model_name="nomic-embed-text", base_url=OLLAMA_URL)
 
 
 def llm_model(model: str = "gemma3:4b", timeout: float = 60.0, num_predict: int = 5024):

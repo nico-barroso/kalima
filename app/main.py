@@ -30,9 +30,7 @@ def get_reranker():
 
 
 def main():
-    st.set_page_config(
-        page_title="Kalima", page_icon="☁️", initial_sidebar_state="collapsed"
-    )
+    st.set_page_config(page_title="Kalima", page_icon="☁️", initial_sidebar_state="collapsed")
 
     model_missing = get_missing_models()
     if model_missing:

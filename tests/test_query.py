@@ -1,7 +1,6 @@
 from unittest.mock import MagicMock
 
 from llama_index.core import PromptTemplate
-
 from pipeline.query import qa_prompt, query
 
 
@@ -30,6 +29,4 @@ def test_query_passes_prompt_template_instance_not_callable():
     assert isinstance(template, PromptTemplate), (
         f"text_qa_template debe ser PromptTemplate, no {type(template)}"
     )
-    assert not callable(template), (
-        "text_qa_template no debe ser la función qa_prompt sin llamar"
-    )
+    assert not callable(template), "text_qa_template no debe ser la función qa_prompt sin llamar"

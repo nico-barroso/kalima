@@ -14,3 +14,14 @@ THINKING_MESSAGES = [
     "Procesando...",
 ]
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
+
+# Configure a module-level logger for the application.
+import logging
+
+logger = logging.getLogger(PROJECT_NAME)
+if not logger.handlers:
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+logger.setLevel(logging.INFO)

@@ -62,11 +62,11 @@ def stream_response(
     bubble = st.empty()
     thinking_message = random.choice(THINKING_MESSAGES)
     bubble.html(
-        BUBBLE_STREAMING.format(
-            content=f'<span class="thinking">{thinking_message}</span>'
-        )
+        BUBBLE_STREAMING.format(content=f'<span class="thinking">{thinking_message}</span>')
     )
-    response = query(index, prompt, st.session_state.reranker, top_k=top_k, chat_history=chat_history)  
+    response = query(
+        index, prompt, st.session_state.reranker, top_k=top_k, chat_history=chat_history
+    )
     full_response_parts: list[str] = []
     for token in response.response_gen:
         full_response_parts.append(token)

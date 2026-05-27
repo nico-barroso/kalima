@@ -16,9 +16,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 @st.cache_resource
 def load_assets():
     zodiak = font_to_base64(os.path.join(BASE_DIR, "assets/Zodiak-Bold.otf"))
-    plus_jakarta = font_to_base64(
-        os.path.join(BASE_DIR, "assets/PlusJakartaSans-Regular.otf")
-    )
+    plus_jakarta = font_to_base64(os.path.join(BASE_DIR, "assets/PlusJakartaSans-Regular.otf"))
     with open(os.path.join(BASE_DIR, "assets/Cloud.svg")) as f:
         cloud_svg = f.read()
     return zodiak, plus_jakarta, cloud_svg

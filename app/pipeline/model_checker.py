@@ -39,9 +39,7 @@ def get_missing_models() -> list[str]:
 @st.dialog("Modelos requeridos no encontrados")
 def missing_models_dialog(model_missing):
     if not is_ollama_running():
-        st.error(
-            "Ollama no detectado. Por favor comprueba que Ollama se encuentra en ejecución."
-        )
+        st.error("Ollama no detectado. Por favor comprueba que Ollama se encuentra en ejecución.")
     else:
         st.error("Faltan los siguientes modelos:")
         for model in model_missing:

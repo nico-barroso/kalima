@@ -48,9 +48,7 @@ def doc_sidebar():
             st.html("")
             return
 
-        files = sorted(
-            os.scandir(DOC_FOLDER_URL), key=lambda f: f.stat().st_mtime, reverse=True
-        )
+        files = sorted(os.scandir(DOC_FOLDER_URL), key=lambda f: f.stat().st_mtime, reverse=True)
 
         cards_html = '<div class="document-container">'
         for filename in files:
