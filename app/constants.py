@@ -1,4 +1,5 @@
 import os
+import logging
 
 DOC_FOLDER_URL = "./docs"
 VECTOR_STORE_PATH = "./chroma_db"
@@ -15,8 +16,6 @@ THINKING_MESSAGES = [
 ]
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
 
-# Configure a module-level logger for the application.
-import logging
 
 logger = logging.getLogger(PROJECT_NAME)
 if not logger.handlers:
