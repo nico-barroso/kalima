@@ -18,8 +18,8 @@ def get_index():
     if (STORE_PATH / "chroma.sqlite3").exists():
         try:
             return load_index()
-        except Exception as e:
-            st.error(f"Error loading the index: {e}. Rebuilding...")
+        except (OSError, RuntimeError, ValueError) as error:
+            st.error(f"Error loading the index: {error!s}. Rebuilding...")
             return build_index()
     return build_index()
 

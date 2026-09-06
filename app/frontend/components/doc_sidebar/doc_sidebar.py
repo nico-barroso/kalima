@@ -40,8 +40,8 @@ def doc_sidebar():
                     try:
                         with open(f"./docs/{file.name}", "wb") as out:
                             out.write(file.getbuffer())
-                    except Exception as e:
-                        st.error(f"Error al guardar {file.name}: {str(e)}")
+                    except OSError as error:
+                        st.error(f"Error al guardar {file.name}: {error!s}")
                 st.rerun()
 
         if not os.path.exists("./docs"):
