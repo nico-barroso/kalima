@@ -19,7 +19,8 @@ def doc_sidebar():
         with st.container(key="uploader-container"):
             st.header("Mis documentos")
             st.caption(
-                "Here you can upload your own documents. Remember that the model need to index each time you upload a document."
+                "Here you can upload your own documents. "
+                "Remember that the model needs to index each time you upload a document."
             )
             uploaded = st.file_uploader(
                 "Subir documento",

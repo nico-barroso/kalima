@@ -9,8 +9,9 @@ MODELS = {
 
 
 def model_selector():
-    """Controls the selectors of the LLM model and the top-k retrieved. DEV-NOTE: using the reranker retrieves by default 3 nodes,
-    adding more nodes to the top-k just adds more nodes to the ranking.
+    """Controls the selectors of the LLM model and the top-k retrieved. 
+    DEV-NOTE: using the reranker retrieves by default 3 nodes.
+    Adding more nodes to the top-k just adds more nodes to the ranking.
     Note:
         Adds the top-k and the model to the streamlit session_state."""
 
@@ -34,7 +35,8 @@ def model_selector():
             key="top-k",
         )
         st.caption(
-            "Kalima es un proyecto con la finalidad de aprendizaje y puede cometer errores. Porfavor, verifica las respuestas.",
+            "Kalima es un proyecto con la finalidad de aprendizaje y puede cometer errores. " 
+            "Porfavor, verifica las respuestas.",
             text_alignment="center",
         )
 
