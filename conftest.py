@@ -1,5 +1,6 @@
 import sys
 import tempfile
+
 import fitz
 import pytest
 
